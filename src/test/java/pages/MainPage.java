@@ -3,6 +3,9 @@ package pages;
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 public class MainPage extends PageBase {
@@ -15,11 +18,16 @@ public class MainPage extends PageBase {
 
     public MainPage(WebDriver driver) {
         super(driver);
-        this.driver.get("https://www.demoblaze.com/");
     }
 
     public String getFooterText() {
         return this.waitAndReturnElement(footerBy).getText();
+    }
+
+    public AboutPage openAboutPage() {
+        By aboutUsBy = By.xpath("//a[text()=\"About us\"]");
+        this.waitAndReturnElement(aboutUsBy).click();
+        return new AboutPage(this.driver);
     }
 
     public LoginPage openLoginForm() {
@@ -50,5 +58,25 @@ public class MainPage extends PageBase {
         By cartLink = By.id("cartur");
         this.waitAndReturnElement(cartLink).click();
         return new CartPage(this.driver);
+    }
+
+    public WebElement hoverHome() {
+        By contactBy = By.xpath("//a[text()=\"Contact\"]");
+        Actions hoverAction = new Actions(this.driver);
+        WebElement homeElement = this.waitAndReturnElement(contactBy);
+        hoverAction.moveToElement(homeElement).perform();
+        return homeElement;
+    }
+
+    public ContactPage goContactPage() {
+        By contactBy = By.xpath("//a[text()=\"Contact\"]");
+        this.waitAndReturnElement(contactBy).click();
+        return new ContactPage(this.driver);
+    }
+
+    public AboutPage goAboutUs() {
+        By aboutUsBy = By.xpath("//a[text()=\"About us\"]");
+        this.waitAndReturnElement(aboutUsBy).click();
+        return new AboutPage(this.driver);
     }
 }

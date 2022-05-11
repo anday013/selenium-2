@@ -16,7 +16,6 @@ public class ProductPage extends PageBase {
     }
 
     public boolean isPageValid() {
-        System.out.println(this.waitAndReturnElement(productBodyBy).getText());
         return this.waitAndReturnElement(productBodyBy).getText().contains(productName);
     }
 
